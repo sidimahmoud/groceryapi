@@ -63,7 +63,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Check whether the user is a translator
+     * Check whether the user is a LIVREUR
      *
      * @return bool
      */
@@ -73,7 +73,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Check whether the user is a translator
+     * Check whether the user is an ADMIN
      *
      * @return bool
      */
@@ -82,7 +82,7 @@ class User extends Authenticatable
         return $this->type == self::TYPE['ADMIN'];
     }
     /**
-     * Check whether the user is a translator
+     * Check whether the user is a SUPERMARKET
      *
      * @return bool
      */
