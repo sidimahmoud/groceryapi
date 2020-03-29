@@ -27,7 +27,7 @@ class Order extends Model
         'address',
         'town_id',
         'client_id',
-        'supermarket_id',
+        'super_market_id',
         'livreur_id',
         'is_immediate',
         'instructions',
