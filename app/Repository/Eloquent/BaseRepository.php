@@ -216,13 +216,13 @@ class BaseRepository implements EloquentRepositoryInterface
         }
 
         //add exact filters
-        foreach ($this->exactFilters as $filter) {
+        /*foreach ($this->exactFilters as $filter) {
             $this->allowedFilters[] = Filter::exact($filter);
         }
 
         // configure sorts
         $this->allowedSorts = $fillable;
-        $this->allowedSorts[] = 'id';
+        $this->allowedSorts[] = 'id';*/
     }
 
 
