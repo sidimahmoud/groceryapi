@@ -33,9 +33,39 @@ class OrderRepository extends BaseRepository
     *
     * @param Order $model
     */
-   public function __construct(Order $model)
-   {
-       parent::__construct($model);
-   }
+    public function __construct(Order $model)
+    {
+        parent::__construct($model);
+    }
+
+    /**
+     * Create translator
+     *
+     * @param array $data
+     * @return Model
+     */
+    public function create(array $data): Model
+    {
+        $order = parent::create($data);
+        $this->setModel($order);
+        $this->saveMetaData($data);
+        return $order;
+    }
+
+    /**
+     * Save translator meta data
+     *
+     * @param array $data
+     */
+    private function saveMetaData(array $data = [])
+    {
+        // check if products are set
+        if (!empty($data['products'])) {
+            foreach($data['products'] as $product) {
+                $this->model->products()->create($product);
+            }
+        }
+
+    }
 
 }

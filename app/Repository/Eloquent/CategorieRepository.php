@@ -14,6 +14,8 @@ class CategorieRepository extends BaseRepository
      * @var array
      */
     protected $exactFilters = [
+        'super_market_id',
+        'name'
     ];
 
     /**

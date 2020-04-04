@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
-use Spatie\QueryBuilder\Filter as Filter;
+use Spatie\QueryBuilder\Filters\Filter as Filter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 
@@ -215,14 +215,14 @@ class BaseRepository implements EloquentRepositoryInterface
             }
         }
 
-        // add exact filters
-       /* foreach ($this->exactFilters as $filter) {
+        //add exact filters
+        foreach ($this->exactFilters as $filter) {
             $this->allowedFilters[] = Filter::exact($filter);
         }
 
         // configure sorts
         $this->allowedSorts = $fillable;
-        $this->allowedSorts[] = 'id';*/
+        $this->allowedSorts[] = 'id';
     }
 
 

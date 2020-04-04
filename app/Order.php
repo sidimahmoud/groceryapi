@@ -73,6 +73,7 @@ class Order extends Model
      */
     public function products()
     {
+        info("ici avant");
         return $this->hasMany(OrderProduct::class);
     }
 

@@ -14,10 +14,6 @@ class OrderProductRespository extends BaseRepository
      * @var array
      */
     protected $exactFilters = [
-        'order_id',
-        'product_id',
-        'quantity',
-        'total'
     ];
 
     /**
