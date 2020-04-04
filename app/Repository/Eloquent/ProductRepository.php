@@ -14,16 +14,17 @@ class ProductRepository extends BaseRepository
      * @var array
      */
     protected $exactFilters = [
-        'categorie_id',
-        'name',
-        'image',
-        'price'
     ];
 
     /**
      * @var array
      */
     protected $allowedIncludes = [];
+
+    /**
+     * @var array
+     */
+    protected $allowedFilters = [];
 
    /**
     * OrderRepository constructor.

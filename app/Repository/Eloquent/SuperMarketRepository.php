@@ -14,16 +14,6 @@ class SuperMarketRepository extends BaseRepository
      * @var array
      */
     protected $exactFilters = [
-        'id',
-        'user_id',
-        'address',
-        'name',
-        'town_id',
-        'city',
-        'town_name',
-        'post_code',
-        'coordinates',
-        'logo'
     ];
 
     /**
@@ -32,6 +22,11 @@ class SuperMarketRepository extends BaseRepository
     protected $allowedIncludes = [
         'categories'
     ];
+
+    /**
+     * @var array
+     */
+    protected $allowedFilters = [];
 
    /**
     * OrderRepository constructor.

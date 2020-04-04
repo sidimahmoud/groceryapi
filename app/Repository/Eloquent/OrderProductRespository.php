@@ -24,6 +24,11 @@ class OrderProductRespository extends BaseRepository
      * @var array
      */
     protected $allowedIncludes = [];
+    
+    /**
+     * @var array
+     */
+    protected $allowedFilters = [];
 
    /**
     * OrderRepository constructor.

@@ -62,6 +62,7 @@ class BaseRepository implements EloquentRepositoryInterface
     public function __construct(Model $model)     
     {         
         $this->model = $model;
+        $this->makeFillableFiltersAndSorts();
     }
 
     /**
@@ -193,6 +194,37 @@ class BaseRepository implements EloquentRepositoryInterface
 
         return $query;
     }
+
+    /**
+     * Set the allowed filters and sorts to the model's fillable
+     */
+    protected function makeFillableFiltersAndSorts()
+    {
+        // get fillable
+        $fillable = $this->model->getFillable();
+        info($fillable);
+        info($this->model->getFillable());
+        $fillable[] = $this->model->getCreatedAtColumn();
+        $fillable[] = $this->model->getUpdatedAtColumn();
+
+        info($fillable);
+        // add default filters
+        foreach ($fillable as $field) {
+            if (!in_array($field, $this->exactFilters)) {
+                $this->allowedFilters[] = $field;
+            }
+        }
+
+        // add exact filters
+       /* foreach ($this->exactFilters as $filter) {
+            $this->allowedFilters[] = Filter::exact($filter);
+        }
+
+        // configure sorts
+        $this->allowedSorts = $fillable;
+        $this->allowedSorts[] = 'id';*/
+    }
+
 
 
 }

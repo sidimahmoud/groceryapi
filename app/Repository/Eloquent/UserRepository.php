@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Hash;
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
 
+    /**
+     * @var array
+     */
+    protected $allowedFilters = [];
+    
    /**
     * UserRepository constructor.
     *
