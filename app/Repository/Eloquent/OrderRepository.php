@@ -61,6 +61,7 @@ class OrderRepository extends BaseRepository
     {
         // check if products are set
         if (!empty($data['products'])) {
+            info($data['products']);
             foreach($data['products'] as $product) {
                 $this->model->products()->create($product);
             }
