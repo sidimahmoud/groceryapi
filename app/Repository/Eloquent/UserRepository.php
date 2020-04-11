@@ -3,12 +3,11 @@
 namespace App\Repository\Eloquent;
 
 use App\User;
-use App\Repository\UserRepositoryInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Support\Facades\Hash;
 
-class UserRepository extends BaseRepository implements UserRepositoryInterface
+class UserRepository extends BaseRepository
 {
 
     /**

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
-use App\Repository\UserRepositoryInterface; 
+use App\Repository\Eloquent\UserRepository; 
 use Illuminate\Http\Request;
 
 class UsersController extends BaseController
 {
    private $userRepository;
   
-   public function __construct(UserRepositoryInterface $userRepository)
+   public function __construct(UserRepository $userRepository)
    {
        $this->userRepository = $userRepository;
    }
@@ -31,6 +31,26 @@ class UsersController extends BaseController
     public function store(Request $request)
     {
         $user = $this->userRepository->create($request->all());
+        return response()->json($user, 201);
+    }
+
+    /**
+     * Get current user with the app provided
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function current(Request $request)
+    {
+        $user = $request->user();
+        if (empty($user)) {
+            return response()->json(
+                ['data' => [
+                    'user' => $request->all()
+                   ]
+                ]
+            );
+        }
         return response()->json($user, 201);
     }
  

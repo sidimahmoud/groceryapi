@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Support\Facades\Hash;
 use App\Order;
+use App\Events\OrderCreated;
 
 class OrderRepository extends BaseRepository
 {
@@ -49,6 +50,7 @@ class OrderRepository extends BaseRepository
         $order = parent::create($data);
         $this->setModel($order);
         $this->saveMetaData($data);
+        event(new OrderCreated($order));
         return $order;
     }
 
@@ -61,7 +63,6 @@ class OrderRepository extends BaseRepository
     {
         // check if products are set
         if (!empty($data['products'])) {
-            info($data['products']);
             foreach($data['products'] as $product) {
                 $this->model->products()->create($product);
             }

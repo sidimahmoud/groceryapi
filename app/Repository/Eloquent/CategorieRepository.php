@@ -14,8 +14,6 @@ class CategorieRepository extends BaseRepository
      * @var array
      */
     protected $exactFilters = [
-        'super_market_id',
-        'name'
     ];
 
     /**
@@ -28,7 +26,10 @@ class CategorieRepository extends BaseRepository
     /**
      * @var array
      */
-    protected $allowedFilters = [];
+    protected $allowedFilters = [
+        'super_market_id',
+        'name'
+    ];
 
    /**
     * OrderRepository constructor.
