@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\OrderCreated' => [
             'App\Listeners\OrderCreatedListener'
         ],
+        // batches
+        'App\Events\PotentialBookingEvent' => [
+            'App\Listeners\PotentialBookingListener'
+        ],
     ];
 
     /**

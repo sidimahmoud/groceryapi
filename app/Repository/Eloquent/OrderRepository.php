@@ -6,7 +6,13 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Support\Facades\Hash;
 use App\Order;
+use App\SuperMarket;
+use App\DriverData;
 use App\Events\OrderCreated;
+use App\Events\PotentialBookingEvent;
+use Carbon\Carbon;
+use App\Repository\Eloquent\BatcheRepository;
+use App\Jobs\GenerateBatches;
 
 class OrderRepository extends BaseRepository
 {
@@ -29,14 +35,20 @@ class OrderRepository extends BaseRepository
      */
     protected $allowedFilters = [];
 
+    /**
+     * @var BatcheRepository;
+     */
+    private $batchEntryRepository;
+
    /**
     * OrderRepository constructor.
     *
     * @param Order $model
     */
-    public function __construct(Order $model)
+    public function __construct(Order $model, BatcheRepository $batchEntryRepository)
     {
         parent::__construct($model);
+        $this->batchEntryRepository = $batchEntryRepository;
     }
 
     /**
@@ -49,7 +61,10 @@ class OrderRepository extends BaseRepository
     {
         $order = parent::create($data);
         $this->setModel($order);
-        $this->saveMetaData($data);
+        $this->saveProducts($data);
+        //$this->generateBatches($data);
+        $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
+        dispatch($executeJob);
         event(new OrderCreated($order));
         return $order;
     }
@@ -59,7 +74,7 @@ class OrderRepository extends BaseRepository
      *
      * @param array $data
      */
-    private function saveMetaData(array $data = [])
+    private function saveProducts(array $data = [])
     {
         // check if products are set
         if (!empty($data['products'])) {
@@ -68,6 +83,53 @@ class OrderRepository extends BaseRepository
             }
         }
 
+    }
+
+    /**
+     * Create Batches
+     *
+     * @param array $data
+     */
+    private function generateBatches(array $data = [], Order $order)
+    {
+        $market = SuperMarket::where('id', $data['super_market_id'])->first();
+        $drivers = DriverData::where('town_id', $data['town_id'])
+                               ->where('has_contract', '=', false)->get();
+        $marketCoord = explode(',', $market["coordinates"]);
+        
+        if(!empty($drivers)){
+            foreach($drivers as $key=>$driver){
+                $driverCoord = explode(',', $driver["coordinates"]);
+                $dist = $this->geoLocation($driverCoord,$marketCoord);
+                if($dist!=0){
+                    $this->batchEntryRepository->create([
+                        'order_id' => $order->id,
+                        'driver_id' => $driver['id'],
+                        'will_send_at' => Carbon::now()->addSeconds(($key+2)*30),
+                        'temp_travel_distance' => $dist
+                   ]);
+                }
+            }
+            $this->batchEntryRepository->executeFirstBatch($order->id);
+        }else {
+            info('no_matching_drivers');
+        }
+        
+    }
+
+    private function geoLocation(array $first = [], array $second = []){
+        if (($first[0] == $first[1]) && ($second[0] == $second[1])) {
+            return 0;
+        }
+        else {
+            $theta = $first[1]- $second[1];
+            $dist = sin(deg2rad($first[0])) * sin(deg2rad($second[0])) +  cos(deg2rad($first[0])) * cos(deg2rad($second[0])) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+            
+            return ($miles * 1.609344);
+        }
     }
 
 }

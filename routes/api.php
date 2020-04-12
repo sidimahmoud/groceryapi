@@ -26,3 +26,4 @@ Route::resource('markets', 'SuperMarketController');
 Route::resource('products', 'ProductController');
 Route::resource('orders-products', 'OrderProductController');
 Route::resource('categories', 'CategorieController');
+Route::resource('drivers', 'DriverDataController');

@@ -73,8 +73,15 @@ class Order extends Model
      */
     public function products()
     {
-        info("ici avant");
         return $this->hasMany(OrderProduct::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPending(): bool
+    {
+        return $this->status_id == self::STATUS['pending'];
     }
 
 }
