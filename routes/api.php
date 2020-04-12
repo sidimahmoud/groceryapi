@@ -27,3 +27,5 @@ Route::resource('products', 'ProductController');
 Route::resource('orders-products', 'OrderProductController');
 Route::resource('categories', 'CategorieController');
 Route::resource('drivers', 'DriverDataController');
+Route::resource('batches', 'BatcheController');
+Route::get('trancate-batches', 'BatcheController@troncate');
