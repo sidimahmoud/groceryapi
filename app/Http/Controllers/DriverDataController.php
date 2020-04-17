@@ -45,4 +45,19 @@ class DriverDataController extends Controller
         $driver = $this->driverRepository->findById($id);
         return response()->json($driver);
     }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param DriverData $driver
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, DriverData $driver)
+    {
+        // for some reasons, constructors are executed first before the middleware
+        $this->driverRepository->setModel($driver);
+        $data = $this->driverRepository->update($request->all());
+        return response()->json($data);
+    }
 }

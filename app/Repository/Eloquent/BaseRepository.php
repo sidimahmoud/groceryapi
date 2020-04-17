@@ -225,6 +225,26 @@ class BaseRepository implements EloquentRepositoryInterface
         $this->allowedSorts[] = 'id';*/
     }
 
+    /**
+     * @param array $includes
+     * @return array
+     */
+    public function transformItem(array $includes = []): array
+    {
+        return $this->processItemTransformer($this->model, $this->getTransformer(), $this->getResourceKey(), $includes);
+    }
+
+    /**
+     * @param $data
+     * @param array $includes
+     * @return array
+     */
+    public function transformCollection($data, array $includes = []): array
+    {
+        return $this->processCollectionTransformer($data, $this->getTransformer(), $this->getResourceKey(), $includes);
+    }
+
+
 
 
 }

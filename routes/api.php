@@ -26,6 +26,8 @@ Route::resource('markets', 'SuperMarketController');
 Route::resource('products', 'ProductController');
 Route::resource('orders-products', 'OrderProductController');
 Route::resource('categories', 'CategorieController');
-Route::resource('drivers', 'DriverDataController');
+Route::resource('drivers', 'DriverDataController', [
+    'only' => ['update', 'store', 'show', 'index','destroy']
+]);
 Route::resource('batches', 'BatcheController');
 Route::get('trancate-batches', 'BatcheController@troncate');

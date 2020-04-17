@@ -6,6 +6,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Support\Facades\Hash;
 use App\DriverData;
+use League\Fractal\TransformerAbstract;
+use App\Transformers\DriverTransformer;
 
 class DriverRepository extends BaseRepository
 {
@@ -36,5 +38,35 @@ class DriverRepository extends BaseRepository
    {
        parent::__construct($model);
    }
+
+   /**
+     * @return TransformerAbstract
+     */
+    public function getTransformer(): TransformerAbstract
+    {
+        return new DriverTransformer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResourceKey(): string
+    {
+        return 'drivers';
+    }
+
+    
+    //Work arround for update fonction not the final solution
+    /**
+     * Update model
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function update(array $data): bool
+    {
+        return DriverData::where('id', '=', $data['id'] )
+                ->update($data);
+    }
 
 }
