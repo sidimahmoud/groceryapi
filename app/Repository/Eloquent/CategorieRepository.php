@@ -27,8 +27,6 @@ class CategorieRepository extends BaseRepository
      * @var array
      */
     protected $allowedFilters = [
-        'super_market_id',
-        'name'
     ];
 
    /**

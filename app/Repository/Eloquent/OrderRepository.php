@@ -27,13 +27,14 @@ class OrderRepository extends BaseRepository
      * @var array
      */
     protected $allowedIncludes = [
-        'products.product'
+        'products.product',
     ];
 
     /**
      * @var array
      */
-    protected $allowedFilters = [];
+    protected $allowedFilters = [
+    ];
 
     /**
      * @var BatcheRepository;
