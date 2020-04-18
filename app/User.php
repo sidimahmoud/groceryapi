@@ -31,7 +31,9 @@ class User extends Authenticatable
         'username',
         'gender',
         'mobile',
-        'phone'
+        'phone',
+        'address',
+        'coordinates'
     ];
 
     /**
