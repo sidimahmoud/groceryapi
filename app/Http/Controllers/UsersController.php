@@ -53,5 +53,20 @@ class UsersController extends BaseController
         }
         return response()->json($user, 201);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param User $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Int $id)
+    {
+        // This is redundant, I know. But this is the easiest way for now
+        // to still use the query builder that's automatically loaded using this method.
+        $order = $this->userRepository->findById($id);
+        
+        return response()->json($order);
+    }
  
 }

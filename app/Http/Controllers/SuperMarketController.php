@@ -31,4 +31,19 @@ class SuperMarketController extends Controller
         $market = $this->superMarketRepository->create($request->all());
         return response()->json($market, 201);
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Order $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Int $id)
+    {
+        // This is redundant, I know. But this is the easiest way for now
+        // to still use the query builder that's automatically loaded using this method.
+        $order = $this->superMarketRepository->findById($id);
+        
+        return response()->json($order);
+    }
 }
