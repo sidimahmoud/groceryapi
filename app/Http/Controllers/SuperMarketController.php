@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repository\Eloquent\SuperMarketRepository;
+use App\SuperMarket;
 
 class SuperMarketController extends Controller
 {
@@ -45,5 +46,20 @@ class SuperMarketController extends Controller
         $order = $this->superMarketRepository->findById($id);
         
         return response()->json($order);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param DriverData $driver
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, SuperMarket $superMarket)
+    {
+        // for some reasons, constructors are executed first before the middleware
+        $this->superMarketRepository->setModel($superMarket);
+        $data = $this->superMarketRepository->update($request->all());
+        return response()->json($data);
     }
 }

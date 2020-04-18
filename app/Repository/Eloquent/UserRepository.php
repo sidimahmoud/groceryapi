@@ -39,5 +39,18 @@ class UserRepository extends BaseRepository
         
         return $user;
     }
+    
+    //Work arround for update fonction not the final solution
+    /**
+     * Update model
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function update(array $data): bool
+    {
+        return User::where('id', '=', $data['id'] )
+                ->update($data);
+    }
 
 }

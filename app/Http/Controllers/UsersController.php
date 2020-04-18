@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use App\Repository\Eloquent\UserRepository; 
 use Illuminate\Http\Request;
+use App\User;
 
 class UsersController extends BaseController
 {
@@ -67,6 +68,21 @@ class UsersController extends BaseController
         $order = $this->userRepository->findById($id);
         
         return response()->json($order);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        // for some reasons, constructors are executed first before the middleware
+        $this->userRepository->setModel($user);
+        $data = $this->userRepository->update($request->all());
+        return response()->json($data);
     }
  
 }

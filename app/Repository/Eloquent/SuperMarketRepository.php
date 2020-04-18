@@ -38,4 +38,17 @@ class SuperMarketRepository extends BaseRepository
        parent::__construct($model);
    }
 
+   //Work arround for update fonction not the final solution
+    /**
+     * Update model
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function update(array $data): bool
+    {
+        return SuperMarket::where('id', '=', $data['id'] )
+                ->update($data);
+    }
+
 }
