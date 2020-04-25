@@ -156,12 +156,12 @@ class OrderRepository extends BaseRepository
      * @return \Illuminate\Http\Response
      */
     public function userOrders(Int $id){
-        $orders= $this->findByParams([
-            'client_id' => $id,
-            'status_id' => Order::STATUS['pending']
-        ]);
-
-        return $orders;
+        $query = $this->newQuery()
+            ->where('client_id', '=', $id)
+            ->where('status_id', '<', 4);
+        
+        return $this->getQueryBuilderFor($query)
+            ->get();
     }
     
 }
