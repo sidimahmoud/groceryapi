@@ -68,8 +68,6 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function userOrders(Int $id){
-        $order = $this->orderRepository->findById($id);
-        $this->orderRepository->setModel($order);
         $orders = $this->orderRepository->userOrders($id);
         return response()->json($orders);
     }
