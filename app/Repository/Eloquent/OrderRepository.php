@@ -145,9 +145,18 @@ class OrderRepository extends BaseRepository
             'status_id' => Order::STATUS['assigned']
         ]);
         $data['accepted_at'] = Carbon::now()->format('Y-m-d H:i:s');
-        info($data);
         $translator = $this->model->driver()->create($data);
         
+    }
+
+    /**
+     * Accept the order.
+     *
+     * @param Int $int  
+     * @return \Illuminate\Http\Response
+     */
+    public function userOrders(Int $id){
+        return Order::where('client_id', '=', $id )->get();
     }
     
 }

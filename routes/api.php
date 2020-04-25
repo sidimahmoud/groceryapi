@@ -34,3 +34,4 @@ Route::get('trancate-batches', 'BatcheController@troncate');
 Route::post('order/{id}/accept', 'OrderController@accept');
 Route::get('driver/{id}/gains', 'DriverDataController@gains');
 Route::get('driver/{id}/daily-gain', 'DriverDataController@dailyGain');
+Route::get('user/{id}/user-orders', 'OrderController@userOrders');

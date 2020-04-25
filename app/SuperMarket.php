@@ -5,6 +5,7 @@ namespace App;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Categorie;
+use App\Order;
 
 class SuperMarket extends Model
 {
@@ -39,5 +40,13 @@ class SuperMarket extends Model
     public function categories()
     {
         return $this->hasMany(Categorie::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
