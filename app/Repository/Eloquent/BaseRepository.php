@@ -122,6 +122,21 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * Find model by params
+     *
+     * @param array $params
+     * @return Model|Builder
+     */
+    public function findByParams(array $params)
+    {
+        $query = $this->newQuery()
+            ->where($params);
+        return $this->getQueryBuilderFor($query)
+            ->get();
+    }
+
+
+    /**
      * Update model
      *
      * @param array $data

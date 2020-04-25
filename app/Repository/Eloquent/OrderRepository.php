@@ -156,7 +156,11 @@ class OrderRepository extends BaseRepository
      * @return \Illuminate\Http\Response
      */
     public function userOrders(Int $id){
-        return Order::where('client_id', '=', $id )->get();
+        $orders= $this->findByParams([
+            'client_id' => $id
+        ]);
+
+        return $orders;
     }
     
 }
