@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\DriverData;
 use League\Fractal\TransformerAbstract;
 use App\Transformers\DriverTransformer;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class DriverRepository extends BaseRepository
 {
@@ -21,7 +22,9 @@ class DriverRepository extends BaseRepository
      * @var array
      */
     protected $allowedIncludes = [
-        'user'
+        'user',
+        'gains',
+        'orders.order'
     ];
 
     /**
@@ -37,6 +40,7 @@ class DriverRepository extends BaseRepository
    public function __construct(DriverData $model)
    {
        parent::__construct($model);
+       $this->allowedFilters[] = AllowedFilter::scope('daily_driver');
    }
 
    /**

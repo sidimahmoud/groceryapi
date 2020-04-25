@@ -38,8 +38,10 @@ class ExecuteBatchJob implements ShouldQueue
     {
         /** @var Batch $batch */
         $batch = $batchRepository->findById($this->batchId);
-
+        info('$batch->order->isPending()');
+        info($batch->order->isPending());
         if ($batch->order->isPending()) {
+            info('send');
             // set batches as sent
             
             $batchRepository->setModel($batch);

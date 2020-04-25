@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\OrderProduct;
+use App\OrderDriver;
+use App\DriverGain;
 
 class Order extends Model
 {
@@ -82,6 +84,38 @@ class Order extends Model
     public function isPending(): bool
     {
         return $this->status_id == self::STATUS['pending'];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAssigned(): bool
+    {
+        return $this->status_id == self::STATUS['assigned'];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCancelled(): bool
+    {
+        return $this->status_id == self::STATUS['cancelled'];
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function driver()
+    {
+        return $this->hasOne(OrderDriver::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function driverGain()
+    {
+        return $this->hasOne(DriverGain::class);
     }
 
 }

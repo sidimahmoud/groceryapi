@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repository\Eloquent\DriverRepository;
 use App\DriverData;
+use App\DriverGain;
+use Illuminate\Support\Carbon;
 
 class DriverDataController extends Controller
 {
@@ -60,4 +62,35 @@ class DriverDataController extends Controller
         $data = $this->driverRepository->update($request->all());
         return response()->json($data);
     }
+
+    /**
+     * Get the all gain.
+     *
+     * @param Int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function gains(Int $id)
+    {
+        // for some reasons, constructors are executed first before the middleware
+        $driver = $this->driverRepository->findById($id)->with('gains');
+        info('$driver');
+        //info($driver);
+        return response()->json($driver);
+    }
+
+    /**
+     * Get the daily gain.
+     *
+     * @param Int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function dailyGain(Int $id)
+    {
+        $gains = DriverGain::where('driver_data_id','=', $id)->whereDate('created_at', Carbon::today())->sum('total');
+        return response()->json([
+            'status' => 'success',
+            'total' => $gains,
+        ]);
+    }
+    
 }

@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\DriverGain;
+use App\OrderDriver;
 
 class DriverData extends Model
 {
@@ -38,5 +40,21 @@ class DriverData extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function gains()
+    {
+        return $this->hasMany(DriverGain::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function orders()
+    {
+        return $this->hasMany(OrderDriver::class);
     }
 }

@@ -46,4 +46,19 @@ class OrderController extends Controller
         
         return response()->json($order);
     }
+
+    /**
+     * Accept the order.
+     *
+     * @param Order $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function accept(Int $id,Request $request){
+        $order = $this->orderRepository->findById($id);
+        $this->orderRepository->setModel($order);
+        $this->orderRepository->accept($request->all());
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
 }

@@ -133,4 +133,21 @@ class OrderRepository extends BaseRepository
         }
     }
 
+    /**
+     * Accept the order.
+     *
+     * @param Order $order  
+     * @return \Illuminate\Http\Response
+     */
+    public function accept(array $data){
+        // change the booking status to assign to prevent another translator from accepting it
+        $this->model->update([
+            'status_id' => Order::STATUS['assigned']
+        ]);
+        $data['accepted_at'] = Carbon::now()->format('Y-m-d H:i:s');
+        info($data);
+        $translator = $this->model->driver()->create($data);
+        
+    }
+    
 }
