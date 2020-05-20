@@ -163,5 +163,52 @@ class OrderRepository extends BaseRepository
         return $this->getQueryBuilderFor($query)
             ->get();
     }
+
+    /**
+     * Accept the order.
+     *
+     * @param Int $int  
+     * @return \Illuminate\Http\Response
+     */
+    public function completOrders(Int $id){
+        $query = $this->newQuery()
+            ->where('super_market_id', '=', $id)
+            ->where('status_id', '=', 4);
+        
+        return $this->getQueryBuilderFor($query)
+            ->get();
+    }
+
+    /**
+     * Accept the order.
+     *
+     * @param Int $int  
+     * @return \Illuminate\Http\Response
+     */
+    public function pendingOrders(Int $id){
+        $query = $this->newQuery()
+            ->where('super_market_id', '=', $id)
+            ->where('status_id', '<', 3);
+        
+        return $this->getQueryBuilderFor($query)
+            ->get();
+    }
+
+    /**
+     * Accept the order.
+     *
+     * @param Order $order  
+     * @return \Illuminate\Http\Response
+     */
+    public function completOrder(Int $id){
+        // change the booking status to assign to prevent another translator from accepting it
+        $order = $this->model->update([
+            'status_id' => Order::STATUS['completed']
+        ]);
+
+        return $order;
+    }
+
+    
     
 }

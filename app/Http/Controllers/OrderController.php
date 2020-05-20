@@ -71,4 +71,41 @@ class OrderController extends Controller
         $orders = $this->orderRepository->userOrders($id);
         return response()->json($orders);
     }
+
+    /**
+     * Accept the order.
+     *
+     * @param Order $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function completOrders(Int $id){
+        $orders = $this->orderRepository->completOrders($id);
+        return response()->json($orders);
+    }
+
+    /**
+     * Accept the order.
+     *
+     * @param Order $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function pendingOrders(Int $id){
+        $orders = $this->orderRepository->pendingOrders($id);
+        return response()->json($orders);
+    }
+
+    /**
+     * Accept the order.
+     *
+     * @param Order $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function completOrder(Int $id){
+        $order = $this->orderRepository->findById($id);
+        $this->orderRepository->setModel($order);
+        $orders = $this->orderRepository->completOrder($id);
+        return response()->json($orders);
+    }
+
+    
 }

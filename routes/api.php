@@ -38,3 +38,6 @@ Route::get('user/{id}/user-orders', 'OrderController@userOrders');
 Route::resource('driver-gain', 'DriverGainController', [
     'only' => ['update', 'store', 'show']
 ]);
+Route::get('commerce/{id}/complet-orders', 'OrderController@completOrders');
+Route::get('commerce/{id}/pending-orders', 'OrderController@pendingOrders');
+Route::get('order/{id}/complet', 'OrderController@completOrder');
