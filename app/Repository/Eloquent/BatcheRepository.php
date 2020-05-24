@@ -77,7 +77,7 @@ class BatcheRepository extends BaseRepository
     public function executeBatch(Batche $batch)
     {
         $executeJob = new ExecuteBatchJob($batch->id);
-        $executeJob->delay(Carbon::now()->addSeconds(60));
+        $executeJob->delay(Carbon::now()->addSeconds(30));
         dispatch($executeJob);
     }
 
