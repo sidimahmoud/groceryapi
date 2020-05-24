@@ -72,6 +72,7 @@ class GenerateBatches implements ShouldQueue
                    ]);
                 }
             }
+            Log::info($order->id);
             $this->batchEntryRepository->executeFirstBatch($order->id);
         }else {
             info('no_matching_drivers');
