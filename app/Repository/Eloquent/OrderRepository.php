@@ -13,6 +13,7 @@ use App\Events\PotentialBookingEvent;
 use Carbon\Carbon;
 use App\Repository\Eloquent\BatcheRepository;
 use App\Jobs\GenerateBatches;
+use Illuminate\Support\Facades\Log;
 
 class OrderRepository extends BaseRepository
 {
@@ -63,7 +64,8 @@ class OrderRepository extends BaseRepository
         $order = parent::create($data);
         $this->setModel($order);
         $this->saveProducts($data);
-        //$this->generateBatches($data);
+        //$this->generateBatches($data, $order);
+        Log::info("here repository");
         $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
         dispatch($executeJob);
         event(new OrderCreated($order));

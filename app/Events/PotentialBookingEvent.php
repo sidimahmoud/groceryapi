@@ -34,7 +34,7 @@ class PotentialBookingEvent implements ShouldBroadcast{
      */
     public function __construct(Batche $batch)
     {
-        $this->batch = $batch;
+        $this->batch = $batch::with('order.supermarket');
         $this->users[] = $batch->driver_id;
     }
 

@@ -52,12 +52,13 @@ class GenerateBatches implements ShouldQueue
     public function handle()
     {
         $market = SuperMarket::where('id', $this->data['super_market_id'])->first();
-        $drivers = DriverData::where('town_id', $this->data['town_id'])
-                               ->where('has_contract', '=', false)->get();
+        $drivers = DriverData::where('has_course', '=', false)
+                               ->where('available', '=', true)->get();
         $marketCoord = explode(',', $market["coordinates"]);
         $order = $this->order;
-        
+        info("here");
         if(!empty($drivers)){
+            info(" never here");
             foreach($drivers as $key=>$driver){
                 $driverCoord = explode(',', $driver["coordinates"]);
                 $dist = $this->geoLocation($driverCoord,$marketCoord);
