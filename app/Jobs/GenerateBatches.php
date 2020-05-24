@@ -12,6 +12,7 @@ use App\SuperMarket;
 use App\DriverData;
 use App\Repository\Eloquent\BatcheRepository;
 use App\Order;
+use Illuminate\Support\Facades\Log;
 
 class GenerateBatches implements ShouldQueue
 {
@@ -56,9 +57,9 @@ class GenerateBatches implements ShouldQueue
                                ->where('available', '=', true)->get();
         $marketCoord = explode(',', $market["coordinates"]);
         $order = $this->order;
-        info("here");
+        Log::info("here generate batches");
         if(!empty($drivers)){
-            info(" never here");
+            Log::info("here generate batches");
             foreach($drivers as $key=>$driver){
                 $driverCoord = explode(',', $driver["coordinates"]);
                 $dist = $this->geoLocation($driverCoord,$marketCoord);
