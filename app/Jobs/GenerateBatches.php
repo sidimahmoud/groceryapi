@@ -57,9 +57,9 @@ class GenerateBatches implements ShouldQueue
                                ->where('available', '=', true)->get();
         $marketCoord = explode(',', $market["coordinates"]);
         $order = $this->order;
-        Log::info("here generate batches");
+        info("here generate batches");
         if(!empty($drivers)){
-            Log::info("here generate batches");
+            info("not empty drivers");
             foreach($drivers as $key=>$driver){
                 $driverCoord = explode(',', $driver["coordinates"]);
                 $dist = $this->geoLocation($driverCoord,$marketCoord);
@@ -72,7 +72,7 @@ class GenerateBatches implements ShouldQueue
                    ]);
                 }
             }
-            Log::info($order->id);
+            
             $this->batchEntryRepository->executeFirstBatch($order->id);
         }else {
             info('no_matching_drivers');
