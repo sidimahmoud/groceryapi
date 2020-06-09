@@ -36,4 +36,16 @@ class ProductRepository extends BaseRepository
        parent::__construct($model);
    }
 
+   /**
+     * Update model
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function update(array $data): bool
+    {
+        return Product::where('id', '=', $data['id'] )
+                ->update($data);
+    }
+
 }
