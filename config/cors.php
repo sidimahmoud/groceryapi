@@ -33,6 +33,8 @@ return [
      */
     'allowed_origins' => ['*'],
 
+    'Access-Control-Allow-Headers' => ['*'],
+
     /*
      * Matches the request origin with, similar to `Request::is()`
      */
