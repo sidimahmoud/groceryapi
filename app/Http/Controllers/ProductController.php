@@ -55,7 +55,7 @@ class ProductController extends Controller
      * @param DriverData $driver
      * @return \Illuminate\Http\Response
      */
-    public function delete(Product $product)
+    public function destroy(Product $product)
     {
         // for some reasons, constructors are executed first before the middleware
         $this->productRepository->setModel($product);

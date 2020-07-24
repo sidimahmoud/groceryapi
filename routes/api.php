@@ -23,7 +23,9 @@ Route::middleware(['auth:api'])->group(function () {
 Route::resource('users', 'UsersController');
 Route::resource('orders', 'OrderController');
 Route::resource('markets', 'SuperMarketController');
-Route::resource('products', 'ProductController');
+Route::resource('products', 'ProductController', [
+    'only' => ['index', 'show', 'store', 'destroy', 'update']
+]);
 Route::resource('orders-products', 'OrderProductController');
 Route::resource('categories', 'CategorieController');
 Route::resource('drivers', 'DriverDataController', [
