@@ -14,7 +14,7 @@ class AddNameEnglishProduct extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('name_english')->nullable();
+            $table->string('name_english')->nullable(); 
         });
     }
 
