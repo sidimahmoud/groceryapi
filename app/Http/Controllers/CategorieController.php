@@ -43,8 +43,6 @@ class CategorieController extends Controller
      */
     public function destroy(int $categorieId)
     {
-        info('$categorie');
-        info($categorieId);
         $categorie = $this->categorieRepository->findById($categorieId);
         // for some reasons, constructors are executed first before the middleware
         $this->categorieRepository->setModel($categorie);
