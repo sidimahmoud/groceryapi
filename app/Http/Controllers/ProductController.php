@@ -47,4 +47,19 @@ class ProductController extends Controller
         $data = $this->productRepository->update($request->all());
         return response()->json($data);
     }
+
+    /**
+     * Udestroypdate the specified resource in storage.
+     *
+     * @param Request $request
+     * @param DriverData $driver
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, Product $product)
+    {
+        // for some reasons, constructors are executed first before the middleware
+        $this->productRepository->setModel($product);
+        $data = $this->productRepository->delete();
+        return response()->json($data);
+    }
 }
