@@ -43,6 +43,7 @@ class CategorieController extends Controller
      */
     public function destroy(Categorie $categorie)
     {
+        info($categorie);
         // for some reasons, constructors are executed first before the middleware
         $this->categorieRepository->setModel($categorie);
         $data = $this->categorieRepository->delete();
