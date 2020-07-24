@@ -27,7 +27,9 @@ Route::resource('products', 'ProductController', [
     'only' => ['index', 'show', 'store', 'destroy', 'update']
 ]);
 Route::resource('orders-products', 'OrderProductController');
-Route::resource('categories', 'CategorieController');
+Route::resource('categories', 'CategorieController', [
+    'only' => ['update', 'store', 'show', 'index','destroy']
+]);
 Route::resource('drivers', 'DriverDataController', [
     'only' => ['update', 'store', 'show', 'index','destroy']
 ]);
