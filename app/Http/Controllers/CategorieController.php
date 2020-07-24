@@ -41,10 +41,11 @@ class CategorieController extends Controller
      * @param DriverData $driver
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categorie $categorie)
+    public function destroy(int $categorieId)
     {
         info('$categorie');
-        info($categorie);
+        info($categorieId);
+        $categorie = $this->categorieRepository->findById($categorieId);
         // for some reasons, constructors are executed first before the middleware
         $this->categorieRepository->setModel($categorie);
         $data = $this->categorieRepository->delete();
