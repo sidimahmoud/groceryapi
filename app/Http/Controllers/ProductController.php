@@ -17,7 +17,12 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->productRepository->all();
+        if (request()->has('all')) {
+            $products = $this->productRepository->get();
+        } else {
+            $products = $this->productRepository->paginate();
+        }
+        
         return response()->json($products, 201);
     }
 

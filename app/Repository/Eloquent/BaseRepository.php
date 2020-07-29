@@ -192,6 +192,18 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * Paginate model collection
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginate(): LengthAwarePaginator
+    {
+        return $this->getQueryBuilderFor(
+            $this->getBasicQuery()
+        )->paginate();
+    }
+
+    /**
      * @return Builder
      */
     protected function getBasicQuery()
