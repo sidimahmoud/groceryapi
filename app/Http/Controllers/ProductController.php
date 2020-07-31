@@ -39,6 +39,19 @@ class ProductController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param int $productId
+     * @return \Illuminate\Http\Response
+     */
+    public function show(int $productId)
+    {
+        $product = $this->productRepository->findById($productId);
+        $this->productRepository->setModel($product);
+        return response()->json($product, 201);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
