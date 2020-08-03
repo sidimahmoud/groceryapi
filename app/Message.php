@@ -16,6 +16,7 @@ class Message extends Model
         'destination_id',
         'message',
         'image',
+        'is_for_admin',
     ];
 
     /**
