@@ -48,3 +48,6 @@ Route::get('order/{id}/complet', 'OrderController@completOrder');
 Route::resource('message', 'MessageController', [
     'only' => ['update', 'store', 'show', 'index','destroy']
 ]);
+Route::resource('inboxes', 'InboxController', [
+    'only' => ['update', 'store', 'show', 'index','destroy']
+]);
