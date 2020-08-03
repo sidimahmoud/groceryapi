@@ -64,11 +64,10 @@ class OrderRepository extends BaseRepository
         $order = parent::create($data);
         $this->setModel($order);
         $this->saveProducts($data);
-        //$this->generateBatches($data, $order);
-        Log::info("here repository");
-        $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
-        dispatch($executeJob);
         event(new OrderCreated($order));
+        //$this->generateBatches($data, $order);
+        /*$executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
+        dispatch($executeJob);*/
         return $order;
     }
 

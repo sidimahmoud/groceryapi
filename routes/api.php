@@ -45,3 +45,6 @@ Route::resource('driver-gain', 'DriverGainController', [
 Route::get('commerce/{id}/complet-orders', 'OrderController@completOrders');
 Route::get('commerce/{id}/pending-orders', 'OrderController@pendingOrders');
 Route::get('order/{id}/complet', 'OrderController@completOrder');
+Route::resource('message', 'MessageController', [
+    'only' => ['update', 'store', 'show', 'index','destroy']
+]);
