@@ -92,4 +92,9 @@ class User extends Authenticatable
     {
         return $this->type == self::TYPE['SUPERMARKET'];
     }
+
+    public function inboxes(){
+        return $this->hasMany(Inbox::class);
+    }
+    
 }

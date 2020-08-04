@@ -51,7 +51,7 @@ class InboxRepository extends BaseRepository
         $inbox = parent::create($data);
         $this->setModel($inbox);
         
-        event(new MessageEvent($inbox));
+        //event(new MessageEvent($inbox));
         
         return $inbox;
     }

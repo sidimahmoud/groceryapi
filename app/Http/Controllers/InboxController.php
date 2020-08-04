@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repository\Eloquent\InboxRepository;
 use App\Inbox;
+use App\User;
 
 class InboxController extends Controller
 {
@@ -31,5 +32,17 @@ class InboxController extends Controller
     {
         $messages = $this->inboxRepository->create($request->all());
         return response()->json($messages, 201);
+    }
+
+    public function getRooms() {
+        $groups = Inbox::pluck('user_id', 'user_id');
+        return $this->getContactsOfGroups($groups);
+    }
+
+    public function getContactsOfGroups($groups)
+    {
+        return User::whereHas('inboxes', function($query) use($groups){
+            $query->whereIn('user_id', $groups);
+        })->get();
     }
 }
