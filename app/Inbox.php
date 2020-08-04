@@ -15,7 +15,7 @@ class Inbox extends Model
         'user_id',
         'message',
         'image',
-        'from_admin',
+        'from_Admin',
         'admin_id'
     ];
 
