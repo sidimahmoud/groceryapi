@@ -43,7 +43,8 @@ class Order extends Model
         'is_test',
         'booker_name',
         'coordinates',
-        'expiry'
+        'expiry',
+        'amount'
     ];
 
     /**
