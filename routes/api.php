@@ -52,3 +52,8 @@ Route::resource('inboxes', 'InboxController', [
     'only' => ['update', 'store', 'show', 'index','destroy']
 ]);
 Route::get('rooms', 'InboxController@getRooms');
+
+Route::resource('questions', 'QuestionController', [
+    'only' => ['update', 'store', 'show', 'index','destroy']
+]);
+Route::get('questions-rooms', 'QuestionController@getRooms');
