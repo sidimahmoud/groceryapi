@@ -57,9 +57,7 @@ class GenerateBatches implements ShouldQueue
                                ->where('available', '=', true)->get();
         $marketCoord = explode(',', $market["coordinates"]);
         $order = $this->order;
-        info("here generate batches");
         if(!empty($drivers)){
-            info("not empty drivers");
             foreach($drivers as $key=>$driver){
                 $driverCoord = explode(',', $driver["coordinates"]);
                 $dist = $this->geoLocation($driverCoord,$marketCoord);

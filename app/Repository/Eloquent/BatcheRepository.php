@@ -103,4 +103,15 @@ class BatcheRepository extends BaseRepository
         return $this->executeBatch($this->getFirstBatch($orderId));
     }
 
+    /**
+     * Find model by id
+     *
+     * @param int $id
+     * @return Model
+     */
+    public function findById(int $id): Model
+    {
+        return Batche::with('order.products.product')->findOrFail($id);
+    }
+
 }
