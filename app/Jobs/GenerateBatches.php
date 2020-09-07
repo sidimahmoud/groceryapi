@@ -52,6 +52,7 @@ class GenerateBatches implements ShouldQueue
      */
     public function handle()
     {
+        info('excuted time +1');
         $market = SuperMarket::where('id', $this->data['super_market_id'])->first();
         $drivers = DriverData::where('has_course', '=', false)
                                ->where('available', '=', true)->get();
