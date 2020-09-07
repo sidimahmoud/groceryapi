@@ -65,7 +65,7 @@ class OrderRepository extends BaseRepository
         $this->setModel($order);
         $this->saveProducts($data);
         //event(new OrderCreated($order));
-        $this->generateBatches($data, $order);
+        //$this->generateBatches($data, $order);
         $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
         dispatch($executeJob);
         return $order;
