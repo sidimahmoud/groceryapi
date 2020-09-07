@@ -229,12 +229,10 @@ class BaseRepository implements EloquentRepositoryInterface
     {
         // get fillable
         $fillable = $this->model->getFillable();
-        info($fillable);
-        info($this->model->getFillable());
+ 
         $fillable[] = $this->model->getCreatedAtColumn();
         $fillable[] = $this->model->getUpdatedAtColumn();
 
-        info($fillable);
         // add default filters
         foreach ($fillable as $field) {
             if (!in_array($field, $this->exactFilters)) {

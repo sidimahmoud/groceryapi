@@ -50,6 +50,8 @@ class ExecuteBatchJob implements ShouldQueue
             event(new PotentialBookingEvent($batch));
 
             // execute next batch
+            info('excuted GenerateBatches +1');
+            info($batch->id);
             if ($batchRepository->hasExecutableBatch($batch->order_id)) {
                 $batchRepository->executeNextBatch($batch->order_id);
             }

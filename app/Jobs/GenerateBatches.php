@@ -52,23 +52,27 @@ class GenerateBatches implements ShouldQueue
      */
     public function handle()
     {
-        info('excuted time +1');
+        
         $market = SuperMarket::where('id', $this->data['super_market_id'])->first();
         $drivers = DriverData::where('has_course', '=', false)
                                ->where('available', '=', true)->get();
         $marketCoord = explode(',', $market["coordinates"]);
         $order = $this->order;
         if(!empty($drivers)){
+            info('$drivers list');
+            info($drivers);
             foreach($drivers as $key=>$driver){
                 $driverCoord = explode(',', $driver["coordinates"]);
                 $dist = $this->geoLocation($driverCoord,$marketCoord);
                 if($dist!=0){
-                    $this->batchEntryRepository->create([
+                    $batch = $this->batchEntryRepository->create([
                         'order_id' => $order->id,
                         'driver_id' => $driver['id'],
                         'will_send_at' => Carbon::now()->addSeconds(($key+2)*30),
                         'temp_travel_distance' => $dist
                    ]);
+                   info('excuted GenerateBatches +1');
+                   info($batch->id);
                 }
             }
             
