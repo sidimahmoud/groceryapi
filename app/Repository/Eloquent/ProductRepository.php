@@ -6,6 +6,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model; 
 use Illuminate\Support\Facades\Hash;
 use App\Product;
+use App\Modules\Products\Filters\FilterByCategorie;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class ProductRepository extends BaseRepository
 {
@@ -41,6 +43,7 @@ class ProductRepository extends BaseRepository
    public function __construct(Product $model)
    {
        parent::__construct($model);
+       $this->allowedFilters[] = AllowedFilter::custom('categorie', new FilterByCategorie());
    }
 
    /**
