@@ -64,6 +64,7 @@ class OrderRepository extends BaseRepository
         $order = parent::create($data);
         $this->setModel($order);
         $this->saveProducts($data);
+        $this->stripePayment($data);
         //event(new OrderCreated($order));
         //$this->generateBatches($data, $order);
         $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
@@ -71,6 +72,19 @@ class OrderRepository extends BaseRepository
         return $order;
     }
 
+    private function stripePayment(array $data = []){
+        \Stripe\Stripe::setApiKey('pk_test_51HB0HpHDyIu0bdYb9hDG5OPvMMk6YeWFVjAPiMJGJwOSnDGBdT6oq7XFZuxdUwsZlb6cLnh1P0vvfV70lg6zfBIc00a1yYpRgE');
+
+        // Token is created using Stripe Checkout or Elements!
+        // Get the payment token ID submitted by the form:
+        $token = $data['stripeToken'];
+        $charge = \Stripe\Charge::create([
+            'amount' => 1,
+            'currency' => 'cad',
+            'description' => 'Example charge',
+            'source' => $token,
+        ]);
+    }
     /**
      * Save translator meta data
      *
