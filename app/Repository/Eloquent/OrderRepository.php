@@ -79,7 +79,7 @@ class OrderRepository extends BaseRepository
         // Get the payment token ID submitted by the form:
         $token = $data['stripeToken'];
         $charge = \Stripe\Charge::create([
-            'amount' => 100.00,
+            'amount' => $data['amount'] * 100,
             'currency' => 'cad',
             'description' => 'Example charge',
             'source' => $token,
