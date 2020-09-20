@@ -73,7 +73,7 @@ class OrderRepository extends BaseRepository
     }
 
     private function stripePayment(array $data = []){
-        \Stripe\Stripe::setApiKey('pk_test_51HB0HpHDyIu0bdYb9hDG5OPvMMk6YeWFVjAPiMJGJwOSnDGBdT6oq7XFZuxdUwsZlb6cLnh1P0vvfV70lg6zfBIc00a1yYpRgE');
+        \Stripe\Stripe::setApiKey('sk_test_51HB0HpHDyIu0bdYbH0jijh7rejDtqWjP8mK9sT6d87vUPU97Bw22n80q24zOJSE5chUleNUvsxTpfAO0r3EeQpgU00Y9DCuMwN');
 
         // Token is created using Stripe Checkout or Elements!
         // Get the payment token ID submitted by the form:
