@@ -16,7 +16,8 @@ class Categorie extends Model
     protected $fillable = [
         'super_market_id',
         'name',
-        'image'
+        'image',
+        'name_english'
     ];
 
     /**

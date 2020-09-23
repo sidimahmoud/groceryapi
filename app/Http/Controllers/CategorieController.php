@@ -35,6 +35,21 @@ class CategorieController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param Categorie $categorie
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Categorie $categorie)
+    {
+        // for some reasons, constructors are executed first before the middleware
+        $this->categorieRepository->setModel($categorie);
+        $data = $this->categorieRepository->update($request->all());
+        return response()->json($data);
+    }
+
+    /**
      * destroy the specified resource in storage.
      *
      * @param Request $request
