@@ -41,9 +41,10 @@ class CategorieController extends Controller
      * @param Categorie $categorie
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categorie $categorie)
+    public function update(Request $request, int $productId)
     {
         // for some reasons, constructors are executed first before the middleware
+        $categorie = $this->categorieRepository->findById($productId);
         $this->categorieRepository->setModel($categorie);
         $data = $this->categorieRepository->update($request->all());
         return response()->json($data);
