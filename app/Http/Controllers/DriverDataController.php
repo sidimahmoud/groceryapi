@@ -19,7 +19,12 @@ class DriverDataController extends Controller
 
     public function index()
     {
-        $drivers = $this->driverRepository->all();
+        if (request()->has('all')) {
+            $drivers = $this->driverRepository->get();
+        } else {
+            $drivers = $this->driverRepository->paginate();
+        }
+        
         return response()->json($drivers, 201);
     }
 
