@@ -17,7 +17,12 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = $this->orderRepository->all();
+        if (request()->has('all')) {
+            $orders = $this->orderRepository->get();
+        } else {
+            $orders = $this->orderRepository->paginate();
+        }
+        
         return response()->json($orders, 201);
     }
 
@@ -105,6 +110,16 @@ class OrderController extends Controller
         $this->orderRepository->setModel($order);
         $orders = $this->orderRepository->completOrder($id);
         return response()->json($orders);
+    }
+    /**
+     * Accept the order.
+     *
+     * @param Order $booking
+     * @return \Illuminate\Http\Response
+     */
+    public function getReciept(){
+        $pdf = $this->orderRepository->getReciept();
+        return $pdf->stream("relatorio.pdf", array("Attachment" => false));
     }
 
     

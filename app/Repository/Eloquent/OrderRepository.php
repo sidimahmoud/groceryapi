@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\Repository\Eloquent\BatcheRepository;
 use App\Jobs\GenerateBatches;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class OrderRepository extends BaseRepository
 {
@@ -222,6 +223,17 @@ class OrderRepository extends BaseRepository
         ]);
 
         return $order;
+    }
+
+    /**
+     * Accept the order.
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function getReciept(){
+        $pdf = PDF::loadView('reciept');
+
+        return $pdf;
     }
 
     

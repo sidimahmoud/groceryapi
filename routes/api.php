@@ -57,3 +57,4 @@ Route::resource('questions', 'QuestionController', [
     'only' => ['update', 'store', 'show', 'index','destroy']
 ]);
 Route::get('questions-rooms', 'QuestionController@getRooms');
+Route::get('get-reciept', 'OrderController@getReciept');
