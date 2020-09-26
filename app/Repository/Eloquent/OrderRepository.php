@@ -65,7 +65,9 @@ class OrderRepository extends BaseRepository
         $order = parent::create($data);
         $this->setModel($order);
         $this->saveProducts($data);
-        $this->stripePayment($data);
+        info('Config::get(payment.key)');
+        info(Config::get('payment.key'));
+        //$this->stripePayment($data);
         //event(new OrderCreated($order));
         //$this->generateBatches($data, $order);
         $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
@@ -74,8 +76,8 @@ class OrderRepository extends BaseRepository
     }
 
     private function stripePayment(array $data = []){
-        \Stripe\Stripe::setApiKey('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');
-
+        \Stripe\Stripe::setApiKey(Config::get('payment.key'));
+            //'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');
         // Token is created using Stripe Checkout or Elements!
         // Get the payment token ID submitted by the form:
         $token = $data['stripeToken'];
