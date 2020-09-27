@@ -66,9 +66,7 @@ class OrderRepository extends BaseRepository
         $order = parent::create($data);
         $this->setModel($order);
         $this->saveProducts($data);
-        info('Config::get(payment.key)');
-        info(config('payment.key'));
-        //$this->stripePayment($data);
+        $this->stripePayment($data);
         //event(new OrderCreated($order));
         //$this->generateBatches($data, $order);
         $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
