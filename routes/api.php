@@ -58,3 +58,6 @@ Route::resource('questions', 'QuestionController', [
 ]);
 Route::get('questions-rooms', 'QuestionController@getRooms');
 Route::get('get-reciept', 'OrderController@getReciept');
+Route::resource('order-chat', 'OrderMessageController', [
+    'only' => ['update', 'store', 'show', 'index','destroy']
+]);

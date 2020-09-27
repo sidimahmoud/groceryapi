@@ -119,4 +119,12 @@ class Order extends Model
         return $this->hasOne(DriverGain::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function messages()
+    {
+        return $this->hasMany(OrderMessage::class);
+    }
+
 }
