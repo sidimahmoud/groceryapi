@@ -62,8 +62,8 @@ class BatcheRepository extends BaseRepository
     public function getFirstBatch(int $orderId): ?Batche
     {
         $query = $this->newQuery()
-            ->where('order_id', $orderId)
-            ->whereNull('sent_at');
+            ->where('order_id', $orderId);
+            //->whereNull('sent_at');
 
         return $query->orderBy('temp_travel_distance', 'asc')
             ->first();
@@ -91,8 +91,9 @@ class BatcheRepository extends BaseRepository
     {
         return $this->newQuery()
                 ->where('order_id', $bookingId)
-                ->whereNull('sent_at')
                 ->count() > 0;
+                //->whereNull('sent_at')
+                //->count() > 0;
     }
 
      /**
