@@ -44,7 +44,8 @@ class Order extends Model
         'booker_name',
         'coordinates',
         'expiry',
-        'amount'
+        'amount',
+        'tips',
     ];
 
     /**
