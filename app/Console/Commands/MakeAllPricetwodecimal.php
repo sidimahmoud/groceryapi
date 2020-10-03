@@ -41,7 +41,7 @@ class MakeAllPricetwodecimal extends Command
         $products = Product::get();
 
         foreach($products as $pro){
-            $this->info("price");
+            $this->info("price" + $pro->id);
             $this->info($pro->price);
             $this->info(number_format($pro->price, 2));
             $this->info("------");
