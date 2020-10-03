@@ -44,6 +44,10 @@ class MakeAllPricetwodecimal extends Command
             $this->info("price" . $pro->id);
             $this->info($pro->price);
             $this->info(number_format($pro->price, 2));
+            
+            $pro->update([
+                'price' => number_format($pro->price, 2)
+            ]);
             $this->info("------");
         }
     }
