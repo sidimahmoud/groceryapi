@@ -34,6 +34,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request['price'] = number_format($request['price'] , 2);
         $product = $this->productRepository->create($request->all());
         return response()->json($product, 201);
     }
