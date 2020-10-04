@@ -34,6 +34,7 @@ class DriverData extends Model
         'has_driving_license',
         'is_online',
         'is_in_order',
+        'available',
     ];
 
     /**
