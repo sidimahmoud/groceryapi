@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function index()
     {
         if (request()->has('all')) {
-            $orders = $this->orderRepository->get();
+            $orders = $this->orderRepository->all();
         } else {
             $orders = $this->orderRepository->paginate();
         }
