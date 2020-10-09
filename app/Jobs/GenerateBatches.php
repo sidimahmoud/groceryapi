@@ -74,6 +74,8 @@ class GenerateBatches implements ShouldQueue
                         'temp_travel_time' => $dist[1],
                         'market_travel_distance' => $closest[1],
                         'market_travel_time' => $closest[2],
+                        'total_travel_distance' => $closest[1] + $dist[0],
+                        'total_travel_time' => $closest[2] + $dist[1],
                         'possible_gains' => $possible_gain,
                    ]);
                 }

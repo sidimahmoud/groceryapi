@@ -15,6 +15,8 @@ class AddCounterBatchesTable extends Migration
     {
         Schema::table('batches', function (Blueprint $table) {
             $table->unsignedInteger('counter')->default(0);
+            $table->double('total_travel_time')->nullable();
+            $table->double('total_travel_distance')->nullable();
         });
     }
 
