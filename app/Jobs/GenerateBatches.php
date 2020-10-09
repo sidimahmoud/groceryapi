@@ -52,30 +52,32 @@ class GenerateBatches implements ShouldQueue
      */
     public function handle()
     {
-        
-        $market = SuperMarket::where('id', $this->data['super_market_id'])->first();
-        $drivers = DriverData::where('has_course', '=', false)
-                               ->where('available', '=', true)->get();
+        $closest = $this->getClosestMarket();
+        $market = SuperMarket::where('id', $closest[0])->first();
+        $drivers = DriverData::where('is_in_order', 0)
+                               ->where('is_online', 1)->get();
         $marketCoord = explode(',', $market["coordinates"]);
         $order = $this->order;
+        
         if(!empty($drivers)){
-            info('$drivers list');
-            info($drivers);
             foreach($drivers as $key=>$driver){
                 $driverCoord = explode(',', $driver["coordinates"]);
-                $dist = $this->geoLocation($driverCoord,$marketCoord);
-                if($dist!=0){
+                $dist = $this->getTravels($driverCoord,$marketCoord);
+                if(!empty($dist) && $dist[0]!=0){
+                    $possible_gain = 10;//$this->getGain($dist,$closest);
                     $batch = $this->batchEntryRepository->create([
                         'order_id' => $order->id,
                         'driver_id' => $driver['id'],
+                        'super_market_id' => $market['id'],
                         'will_send_at' => Carbon::now()->addSeconds(($key+2)*30),
-                        'temp_travel_distance' => $dist
+                        'temp_travel_distance' => $dist[0],
+                        'temp_travel_time' => $dist[1],
+                        'market_travel_distance' => $closest[1],
+                        'market_travel_time' => $closest[2],
+                        'possible_gains' => $possible_gain,
                    ]);
-                   info('excuted GenerateBatches +1');
-                   info($batch->id);
                 }
             }
-            
             $this->batchEntryRepository->executeFirstBatch($order->id);
         }else {
             info('no_matching_drivers');
@@ -92,8 +94,48 @@ class GenerateBatches implements ShouldQueue
             $dist = acos($dist);
             $dist = rad2deg($dist);
             $miles = $dist * 60 * 1.1515;
-            
             return ($miles * 1.609344);
         }
+    }
+
+    private function getClosestMarket(){
+        $closest_id = 0;
+        $closest_distance = 10000000;
+        $closest_time = 10000000;
+
+        $order = $this->order;
+        $markets = SuperMarket::where('is_test', 0)->get();
+        $orderCoord = explode(',', $order["coordinates"]);
+        foreach($markets as $key=>$market){
+            $marketCoord = explode(',', $market["coordinates"]);
+            $dist = $this->getTravels($marketCoord,$orderCoord);
+            if(!is_null($dist[0]) && $dist[0]<$closest_distance){
+                $closest_id = $market["id"];
+                $closest_distance = $dist[0];
+                $closest_time = $dist[1];
+            }
+        }
+
+        return [
+            $closest_id,
+            $closest_distance,
+            $closest_time
+        ];
+    }
+
+    private function getTravels(array $first = [], array $second = []){
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$first[0],$first[1]&destinations=$second[0],$second[1]&departure_time=now&key=AIzaSyAmGhfMkVv6jEXF4xdtxQZbYJrlqAKokSE";
+        $data = @file_get_contents($url);
+        $data = json_decode($data,true);
+
+        return [
+            $data['rows'][0]['elements'][0]['distance']['value'],
+            $data['rows'][0]['elements'][0]['duration']['value']
+        ];
+    }
+
+    public function getGain(array $first = [], array $second = []){
+        $products_count = count($this->order->products);
+        //$somme = ($products_count * )+
     }
 }

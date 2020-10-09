@@ -23,7 +23,12 @@ class Batche extends Model
         'accepted_at',
         'cancelled_at',
         'rejected_at',
-        'temp_travel_distance'
+        'temp_travel_distance',
+        'temp_travel_time',
+        'market_travel_distance',
+        'market_travel_time',
+        'possible_gains',
+        'super_market_id',
     ];
 
     /**
@@ -40,5 +45,13 @@ class Batche extends Model
     public function driver()
     {
         return $this->belongsTo(DriverData::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function market()
+    {
+        return $this->belongsTo(SuperMarket::class);
     }
 }
