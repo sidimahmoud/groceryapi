@@ -29,6 +29,7 @@ class Batche extends Model
         'market_travel_time',
         'possible_gains',
         'super_market_id',
+        'counter',
     ];
 
     /**

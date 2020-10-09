@@ -44,7 +44,8 @@ class ExecuteBatchJob implements ShouldQueue
             
             $batchRepository->setModel($batch);
             $batchRepository->update([
-                'sent_at' => Carbon::now()
+                'sent_at' => Carbon::now(),
+                'counter' => $batch->counter + 1
             ]);
             
             event(new PotentialBookingEvent($batch));
