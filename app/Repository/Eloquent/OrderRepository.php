@@ -76,16 +76,22 @@ class OrderRepository extends BaseRepository
 
     private function stripePayment(array $data = []){
         \Stripe\Stripe::setApiKey(config('payment.key'));
-
+        $products = $this->model->products();
+        $amount = 0;
+        foreach($products as $produit) {
+            $total = $produit->quantity * $produit->product->price;
+            $amount = $amount + $total;
+        }
+        info("amount", [$amount]);
         // Token is created using Stripe Checkout or Elements!
         // Get the payment token ID submitted by the form:
-        $token = $data['stripeToken'];
+        /*$token = $data['stripeToken'];
         $charge = \Stripe\Charge::create([
             'amount' => $data['amount'] * 100,
             'currency' => 'cad',
-            'description' => 'Example charge',
+            'description' => 'Payment instantavite',
             'source' => $token,
-        ]);
+        ]);*/
     }
     /**
      * Save translator meta data

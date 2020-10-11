@@ -47,6 +47,7 @@ class Order extends Model
         'amount',
         'tips',
         'created_at',
+        'post_code',
     ];
 
     /**
