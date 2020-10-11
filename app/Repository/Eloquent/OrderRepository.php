@@ -69,10 +69,9 @@ class OrderRepository extends BaseRepository
         $this->stripePayment($data);
         //event(new OrderCreated($order));
         //$this->generateBatches($data, $order);
-
         //uncomment this
-        /*$executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
-        dispatch($executeJob);*/
+        $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
+        dispatch($executeJob);
         return $order;
     }
 
