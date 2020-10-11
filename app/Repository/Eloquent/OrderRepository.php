@@ -69,14 +69,17 @@ class OrderRepository extends BaseRepository
         $this->stripePayment($data);
         //event(new OrderCreated($order));
         //$this->generateBatches($data, $order);
-        $executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
-        dispatch($executeJob);
+
+        //uncomment this
+        /*$executeJob = new GenerateBatches($data,$order,$this->batchEntryRepository);
+        dispatch($executeJob);*/
         return $order;
     }
 
     private function stripePayment(array $data = []){
         \Stripe\Stripe::setApiKey(config('payment.key'));
         $products = $this->model->products();
+        info("products", [$products]);
         $amount = 0;
         foreach($products as $produit) {
             $total = $produit->quantity * $produit->product->price;
