@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repository\Eloquent\OrderRepository;
 use App\Order;
+use App\OrderRate;
 
 class OrderController extends Controller
 {
@@ -147,8 +148,9 @@ class OrderController extends Controller
     public function rate(Request $request, Order $order)
     {
         // for some reasons, constructors are executed first before the middleware
-        $this->orderRepository->setModel($order);
-        $data = $this->orderRepository->rate($request->all());
+        /*$this->orderRepository->setModel($order);
+        $data = $this->orderRepository->rate($request->all());*/
+        $data = OrderRate::create($request->all());
         return response()->json($data);
     }
     
