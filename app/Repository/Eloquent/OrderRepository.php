@@ -32,6 +32,7 @@ class OrderRepository extends BaseRepository
         'products.product',
         'messages',
         'driver.driver',
+        'rates',
     ];
 
     /**
