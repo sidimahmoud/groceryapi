@@ -32,6 +32,8 @@ class Batche extends Model
         'counter',
         'total_travel_time',
         'total_travel_distance',
+        'market_address',
+        'market_coordinates',
     ];
 
     /**

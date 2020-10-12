@@ -69,6 +69,8 @@ class GenerateBatches implements ShouldQueue
                         'order_id' => $order->id,
                         'driver_id' => $driver['id'],
                         'super_market_id' => $market['id'],
+                        'market_address' => $market['address'],
+                        'market_coordinates' => $market['coordinates'],
                         'will_send_at' => Carbon::now()->addSeconds(($key+2)*30),
                         'temp_travel_distance' => $dist[0],
                         'temp_travel_time' => $dist[1],
