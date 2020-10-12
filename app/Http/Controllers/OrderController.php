@@ -122,5 +122,20 @@ class OrderController extends Controller
         return $pdf->stream("relatorio.pdf", array("Attachment" => false));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param DriverData $driver
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Order $order)
+    {
+        // for some reasons, constructors are executed first before the middleware
+        $this->orderRepository->setModel($order);
+        $data = $this->orderRepository->update($request->all());
+        return response()->json($data);
+    }
+
     
 }

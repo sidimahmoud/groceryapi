@@ -13,7 +13,7 @@ class Order extends Model
     const STATUS = [
         'pending' => 1,
         'assigned' => 2,
-        'started' => 3,
+        'pickedup' => 3,
         'completed' => 4,
         'cancelled' => 5,
         'expired' => 6
