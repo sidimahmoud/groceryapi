@@ -256,6 +256,6 @@ class OrderRepository extends BaseRepository
      */
     public function rate(array $data){
         // change the booking status to assign to prevent another translator from accepting it
-        $this->model->rate()->create($data);
+        $this->model->rates()->create($data);
     }    
 }
