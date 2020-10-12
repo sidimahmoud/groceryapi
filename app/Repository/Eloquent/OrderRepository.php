@@ -31,6 +31,7 @@ class OrderRepository extends BaseRepository
     protected $allowedIncludes = [
         'products.product',
         'messages',
+        'driver',
     ];
 
     /**
