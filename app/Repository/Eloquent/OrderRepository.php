@@ -255,7 +255,7 @@ class OrderRepository extends BaseRepository
      * @return \Illuminate\Http\Response
      */
     public function rate(array $data){
-        // change the booking status to assign to prevent another translator from accepting it
+        info("rate", [$data]);
         $this->model->rates()->create($data);
     }    
 }
