@@ -37,6 +37,6 @@ class OrderDriver extends Model
      */
     public function driver()
     {
-        return $this->belongsTo(DriverData::class);
+        return $this->belongsTo(DriverData::class, 'driver_data_id');
     }
 }
