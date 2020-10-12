@@ -229,7 +229,8 @@ class OrderRepository extends BaseRepository
     public function completOrder(Int $id){
         // change the booking status to assign to prevent another translator from accepting it
         $order = $this->model->update([
-            'status_id' => Order::STATUS['completed']
+            'status_id' => Order::STATUS['completed'],
+            'completed_at' => Carbon::now()
         ]);
 
         return $order;
@@ -246,6 +247,14 @@ class OrderRepository extends BaseRepository
         return $pdf;
     }
 
-    
-    
+    /**
+     * Accept the order.
+     *
+     * @param Order $order  
+     * @return \Illuminate\Http\Response
+     */
+    public function rate(array $data){
+        // change the booking status to assign to prevent another translator from accepting it
+        $this->model->rate()->create($data);
+    }    
 }

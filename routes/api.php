@@ -61,3 +61,5 @@ Route::get('get-reciept', 'OrderController@getReciept');
 Route::resource('order-chat', 'OrderMessageController', [
     'only' => ['update', 'store', 'show', 'index','destroy']
 ]);
+
+Route::post('order/{id}/rate', 'OrderController@rate');

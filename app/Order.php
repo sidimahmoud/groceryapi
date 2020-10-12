@@ -130,4 +130,12 @@ class Order extends Model
         return $this->hasMany(OrderMessage::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function rates()
+    {
+        return $this->hasMany(OrderRate::class);
+    }
+    
 }

@@ -137,5 +137,19 @@ class OrderController extends Controller
         return response()->json($data);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param DriverData $driver
+     * @return \Illuminate\Http\Response
+     */
+    public function rate(Request $request, Order $order)
+    {
+        // for some reasons, constructors are executed first before the middleware
+        $this->orderRepository->setModel($order);
+        $data = $this->orderRepository->rate($request->all());
+        return response()->json($data);
+    }
     
 }
