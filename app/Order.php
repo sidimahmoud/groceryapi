@@ -48,6 +48,7 @@ class Order extends Model
         'tips',
         'created_at',
         'post_code',
+        'address_complement',
     ];
 
     /**
