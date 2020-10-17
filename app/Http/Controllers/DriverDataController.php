@@ -78,8 +78,6 @@ class DriverDataController extends Controller
     {
         // for some reasons, constructors are executed first before the middleware
         $driver = $this->driverRepository->findById($id)->with('gains');
-        info('$driver');
-        //info($driver);
         return response()->json($driver);
     }
 

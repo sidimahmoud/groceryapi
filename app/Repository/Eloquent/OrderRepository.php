@@ -68,7 +68,7 @@ class OrderRepository extends BaseRepository
         $order = parent::create($data);
         $this->setModel($order);
         $this->saveProducts($data);
-        $this->stripePayment($data);
+        //$this->stripePayment($data);
         //event(new OrderCreated($order));
         //$this->generateBatches($data, $order);
         //uncomment this

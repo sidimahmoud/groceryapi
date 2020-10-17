@@ -128,14 +128,21 @@ class GenerateBatches implements ShouldQueue
     }
 
     private function getTravels(array $first = [], array $second = []){
-        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$first[0],$first[1]&destinations=$second[0],$second[1]&departure_time=now&key=AIzaSyAmGhfMkVv6jEXF4xdtxQZbYJrlqAKokSE";
-        $data = @file_get_contents($url);
-        $data = json_decode($data,true);
+        if(count($first) == 2 && count($second) == 2){
+            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$first[0],$first[1]&destinations=$second[0],$second[1]&departure_time=now&key=AIzaSyAmGhfMkVv6jEXF4xdtxQZbYJrlqAKokSE";
+            $data = @file_get_contents($url);
+            $data = json_decode($data,true);
 
-        return [
-            $data['rows'][0]['elements'][0]['distance']['value'],
-            $data['rows'][0]['elements'][0]['duration']['value']
-        ];
+            return [
+                $data['rows'][0]['elements'][0]['distance']['value'],
+                $data['rows'][0]['elements'][0]['duration']['value']
+            ];
+        }else {
+            return [
+                0,0
+            ];
+        }
+        
     }
 
     public function getGain(array $first = [], array $second = []){

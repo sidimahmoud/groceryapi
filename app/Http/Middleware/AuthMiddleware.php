@@ -46,7 +46,6 @@ class AuthMiddleware
      */
     public function handle($request, Closure $next, ...$guards)
     {
-//        info('$guards', [$request]);
         try {
             $this->authenticate($guards);
         } catch (\Exception $exception) {

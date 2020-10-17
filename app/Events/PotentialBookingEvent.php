@@ -50,6 +50,9 @@ class PotentialBookingEvent implements ShouldBroadcast{
             $channels[] = 'user.' . $user;
         }
 
+        // execute next batch
+        info('potential booking event sent +1');
+        info($channels);
         return collect($channels)->map(function ($channel) {
             return new Channel($channel);
         })->toArray();

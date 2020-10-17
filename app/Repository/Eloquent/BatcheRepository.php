@@ -63,7 +63,7 @@ class BatcheRepository extends BaseRepository
     {
         $query = $this->newQuery()
             ->where('order_id', $orderId)
-            ->where('counter', "<" , 4);
+            ->where('counter', "<" , 2);
             //->whereNull('sent_at');
 
         return $query->orderBy('temp_travel_distance', 'asc')

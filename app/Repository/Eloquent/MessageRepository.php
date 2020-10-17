@@ -52,8 +52,6 @@ class MessageRepository extends BaseRepository
         $this->setModel($message);
         
         event(new MessageEvent($message));
-        info('$message');
-        info($message);
         return $message;
     }
     

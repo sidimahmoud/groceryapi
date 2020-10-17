@@ -49,9 +49,6 @@ class MessageEvent implements ShouldBroadcast{
             $channels[] = 'user.' . $this->message['destination_id'];
         }
 
-        info('$channels');
-        info($channels);
-
         return collect($channels)->map(function ($channel) {
             return new Channel($channel);
         })->toArray();
