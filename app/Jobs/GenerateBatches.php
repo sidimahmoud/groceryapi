@@ -52,7 +52,7 @@ class GenerateBatches implements ShouldQueue
      */
     public function handle()
     {
-        info('call generation');
+        info('call generation for order:', [$this->order->id]);
         $closest = $this->getClosestMarket();
         $market = SuperMarket::where('id', $closest[0])->first();
         $drivers = DriverData::where('is_in_order', 0)
@@ -60,6 +60,9 @@ class GenerateBatches implements ShouldQueue
         $marketCoord = explode(',', $market["coordinates"]);
         $order = $this->order;
         
+        info('driver count');
+        info(count($drivers));
+
         if(!empty($drivers)){
             foreach($drivers as $key=>$driver){
                 
