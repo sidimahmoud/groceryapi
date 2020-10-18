@@ -92,7 +92,7 @@ class BatcheRepository extends BaseRepository
     {
         return $this->newQuery()
                 ->where('order_id', $bookingId)
-                ->where('counter', "<" , 4)
+                ->where('counter', "<" , 2)
                 ->count() > 0;
                 //->whereNull('sent_at')
                 //->count() > 0;
