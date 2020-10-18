@@ -52,6 +52,7 @@ class GenerateBatches implements ShouldQueue
      */
     public function handle()
     {
+        info('call generation');
         $closest = $this->getClosestMarket();
         $market = SuperMarket::where('id', $closest[0])->first();
         $drivers = DriverData::where('is_in_order', 0)
@@ -61,6 +62,7 @@ class GenerateBatches implements ShouldQueue
         
         if(!empty($drivers)){
             foreach($drivers as $key=>$driver){
+                
                 $driverCoord = explode(',', $driver["coordinates"]);
                 $dist = $this->getTravels($driverCoord,$marketCoord);
                 if(!empty($dist) && $dist[0]!=0){
@@ -79,7 +81,9 @@ class GenerateBatches implements ShouldQueue
                         'total_travel_distance' => number_format(($closest[1] + $dist[0])/1000, 1, '.', ''),
                         'total_travel_time' => number_format(($closest[2] + $dist[1])/60, 1, '.', ''),
                         'possible_gains' => $possible_gain,
-                   ]);
+                    ]);
+                    info('generate one batch +1');
+                    info($batch->id);
                 }
             }
             $this->batchEntryRepository->executeFirstBatch($order->id);
